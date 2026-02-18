@@ -79,12 +79,14 @@ def main():
         flash_choice_text = ["Create new card",
                         "Review cards (test)",
                         "List all cards",
+                        "Edit card",
                         "Remove a card",
                         "Remove all cards",
                         "Main menu"]
         
         flash_choice = questionary.select("What would you like do to?", choices = flash_choice_text).ask()
 
+        # Switch for each selection
         match flash_choice:
             case "Create new card":
                 create_card()
@@ -97,17 +99,38 @@ def main():
                 list_all_cards()
                 main()
 
-            case "Remove a card":
+            case "Edit card":
                 print()
 
+            case "Remove a card":
+                print("Please enter word you would like to remove (include accents)")
+                word_to_remove = input()
+                remove_card(word_to_remove)
+                main()
+
             case "Remove all cards":
-                print()
+                remove_card(None)
+                main()
 
             case "Main menu":
                 main()
 
     elif choice == choice_text[3]:
         print("Goodbye <3")
+
+# Function for removing cards, easy to reuse for removing all cards
+def remove_card(word):
+        with open('data.pkl', 'rb') as f:
+            loaded_list = pickle.load(f)
+
+        for obj in loaded_list:
+            if word == None:
+                loaded_list = []
+            elif obj.word == word:
+                loaded_list.remove(obj)
+
+        with open('data.pkl', 'wb') as f:
+            pickle.dump(loaded_list, f)
 
 # Shows all cards to the user
 def list_all_cards():
