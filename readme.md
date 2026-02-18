@@ -16,13 +16,15 @@ I then implemented the ability to count occurances of the most common words and 
 ## What I learned
 - How to clean text better with the use of `.lower()`, `.translate()`, `.split()` and `.join()`
 - The `counter` sub-class of `dicts` and how to use it
+- How to use align text with the `:>` and `:<` operators
 
 ## How can it be improved
 
-- The use of `spacy` (a natural language processing package) to remove names from the text instead of having a list of names hard-coded
+- The use of `spaCy` (a natural language processing package) to remove names from the text instead of having a list of names hard-coded
 
 ## How to use
 
 To run simply clone the rep and run:
 
+`pip install -r requirements.txt`
 `python3 Polish.py`
