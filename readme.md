@@ -1,9 +1,11 @@
-# PolishPython 🇵🇱
+# PolishPython
 
 A simple Python command line tool for use in aiding Polish language learning. This tool uses public domain books taken from https://wolnelektury.pl/ as source material. This project is just a pet project and is not meant to be made for mass-use however I want to be able to track my progress and share it on GitHub.
 
 ## Features
-- Count words in the text to show the most common words, very helpful for language learning
+
+- Count words in the text to show the most common words, very helpful for language learning flashcards
+- Find sentences containing a selected word, good for finding out how words work in context of the language
 
 ## The Process
 
@@ -11,12 +13,14 @@ To start with I needed to find some source material for this project. Thankfully
 
 I then had to do some cleaning of the text which I did in the code instead of manually. I started by making the whole file lower-case, then removing any punctuation and extra white space. I then had to add a list of names as these kept coming up in the results (makes sense as these are novels) but they wouldn't represent the language so I had to create a list of names to remove, which I had to hard-code.
 
-I then implemented the ability to count occurances of the most common words and print them to the terminal which didn't look very nice.
+I then implemented the ability to count occurances of the most common words and print them to the terminal which didn't look very nice. I then learned about the `:>` and `:<` function in Python and used it to format the output. However the interface didn't exist yet and after seeing a project use [BubbleTea](https://github.com/charmbracelet/bubbletea) (a terminal app framework for Go) I wanted to look for a Python library similar and [Questionary](https://github.com/tmbo/questionary/tree/master) was what I found. This is a really cool library for python terminal apps and was exactly what I was looking for, it's pretty and it's simple.
 
 ## What I learned
+
 - How to clean text better with the use of `.lower()`, `.translate()`, `.split()` and `.join()`
 - The `counter` sub-class of `dicts` and how to use it
 - How to use align text with the `:>` and `:<` operators
+- About the python package `questionary` which i will likely use in future projects
 
 ## How can it be improved
 
@@ -26,5 +30,10 @@ I then implemented the ability to count occurances of the most common words and 
 
 To run simply clone the rep and run:
 
-`pip install -r requirements.txt`
-`python3 Polish.py`
+```bash
+pip install -r requirements.txt
+```
+
+```bash
+python3 Polish.py
+```
