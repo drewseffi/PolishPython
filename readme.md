@@ -20,7 +20,7 @@ I then implemented the ability to count occurances of the most common words and 
 - How to clean text better with the use of `.lower()`, `.translate()`, `.split()` and `.join()`
 - The `counter` sub-class of `dicts` and how to use it
 - How to use align text with the `:>` and `:<` operators
-- About the python package `questionary` which i will likely use in future projects
+- About the python package `questionary` which I will likely use in future projects
 
 ## How can it be improved
 

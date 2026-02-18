@@ -1,5 +1,17 @@
 import string
 import questionary
+import nltk
+import re
+try:
+    nltk.data.find('tokenizers/punkt')
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt')
+    nltk.download('punkt_tab')
+    print("nltk datasets not detected, installing...")
+else:
+    print("nltk datasets detected, running PolishPython...")
+from nltk import tokenize
 from collections import Counter
 
 # Premade list of names that occur in the texts
@@ -46,7 +58,24 @@ def main():
 
     # If user wants to look up a sentence containing a word
     elif choice == choice_text[1]:
-        print("Choice 2")
+        print("Please enter a word you would like to see in a sentence (include accents)")
+        search = input()
+        get_sentences(books, search)
+
+def get_sentences(books, s):
+    print("")
+    sentences = tokenize.sent_tokenize(books)
+    pattern = re.compile(rf'\b{re.escape(s)}\b', re.IGNORECASE)
+
+    matches = [sentence for sentence in sentences if pattern.search(sentence)]
+
+    counter = 1
+
+    for sentence in matches:
+        print(f"{counter}) {sentence}")
+        print("")
+        counter += 1
+
 
 # Removes names by checking each word againts a premade list of names
 def remove_person_names(books):
