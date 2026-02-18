@@ -2,6 +2,7 @@ import string
 import questionary
 import nltk
 import re
+import pickle
 try:
     nltk.data.find('tokenizers/punkt')
     nltk.data.find('tokenizers/punkt_tab')
@@ -17,9 +18,18 @@ from collections import Counter
 # Premade list of names that occur in the texts
 names = {"scrooge", "scroogea", "krystian", "krystiana", "piotr"}
 
+class Card:
+    def __init__(self, word, meaning, example):
+        self.word = word
+        self.meaning = meaning
+        self.example = example
+
 def main():
     # Opens the file before running anything else
     books = read_books("Books.txt")
+
+    # Define the deck of cards
+    cards = []
 
     # Fun ascii art from https://patorjk.com/software/taag/
     print(r"""*---------------------------------------------------------------------------------------------------------*""")
@@ -39,10 +49,12 @@ def main():
 
     # Text for choice selection, easier and cleaner to predefine here
     choice_text = ["Show most common words", 
-                   "Search for a word (shows word in sentences)"]
+                   "Search for a word (shows word in sentences)",
+                   "Flashcard mode",
+                   "Display cards"]
 
     # Uses questionary to add a multiple choice selection menu
-    choice = questionary.select("What would you like to do?", choices=[choice_text[0], choice_text[1]]).ask()
+    choice = questionary.select("What would you like to do?", choices = choice_text).ask()
 
     # If user wants to see the most common words
     if choice == choice_text[0]:
@@ -61,6 +73,25 @@ def main():
         print("Please enter a word you would like to see in a sentence (include accents)")
         search = input()
         get_sentences(books, search)
+
+    elif choice == choice_text[2]:
+        print("Word:")
+        word = input()
+        print("Meaning:")
+        meaning = input()
+        print ("Example:")
+        example = input()
+        cards.append(Card(word, meaning, example))
+        with open('data.pkl', 'wb') as f:
+            pickle.dump(cards, f)
+
+    elif choice == choice_text[3]:
+        with open('data.pkl', 'rb') as f:
+            loaded_list = pickle.load(f)
+        for obj in loaded_list:
+            print(f"Word: {obj.word}")
+            print(f"Meaning: {obj.meaning}")
+            print(f"Example: {obj.example}")
 
 def get_sentences(books, s):
     print("")
