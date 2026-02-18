@@ -34,6 +34,45 @@ To run simply clone the rep and run:
 pip install -r requirements.txt
 ```
 
+Or sometimes on Windows you may need to run
+
+```bash
+py -m pip install -r requirements.txt
+```
+
 ```bash
 python3 Polish.py
+```
+
+This will run the program for you and you can navigate the menus using the arrow keys and enter to select. You should see a menu like this:
+
+```
+? What would you like to do?
+>> Show most common words
+   Search for a word (shows word in sentences)
+   Flashcard mode
+```
+
+The workflow of the tool is as follows:
+
+```
+├── Show most common words
+│   └── How many words would you like to display?
+│       └── Displays words
+├── Search for a word
+│   └── Input word (with accents)
+│       └── Displays sentences
+├── Flashcard mode (WIP)
+│   ├── Create new cards (WIP)
+│   │   ├── Input word
+│   │   ├── Input meaning
+│   │   └── Input example
+│   ├── Review cards (To-Do)
+│   │   └── Runs a quiz of your cards
+│   ├── List all cards (To-Do)
+│   │   └── Shows all cards you have created
+│   ├── Remove card (To-Do)
+│   │   └── Input card you want to remove
+│   └── Clear all cards (To-Do)
+└── Exit
 ```
