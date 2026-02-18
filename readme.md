@@ -65,16 +65,17 @@ The workflow of the tool is as follows:
 │   └── Input word (with accents)
 │       └── Displays sentences
 ├── Flashcard mode (WIP)
-│   ├── Create new cards (WIP)
+│   ├── Create new cards
 │   │   ├── Input word
 │   │   ├── Input meaning
 │   │   └── Input example
 │   ├── Review cards (To-Do)
 │   │   └── Runs a quiz of your cards
-│   ├── List all cards (To-Do)
+│   ├── List all cards
 │   │   └── Shows all cards you have created
 │   ├── Remove card (To-Do)
 │   │   └── Input card you want to remove
-│   └── Remove all cards (To-Do)
+│   ├── Remove all cards (To-Do)
+│   └── Main menu
 └── Exit
 ```

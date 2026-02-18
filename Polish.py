@@ -80,7 +80,8 @@ def main():
                         "Review cards (test)",
                         "List all cards",
                         "Remove a card",
-                        "Remove all cards"]
+                        "Remove all cards",
+                        "Main menu"]
         
         flash_choice = questionary.select("What would you like do to?", choices = flash_choice_text).ask()
 
@@ -101,6 +102,9 @@ def main():
 
             case "Remove all cards":
                 print()
+
+            case "Main menu":
+                main()
 
     elif choice == choice_text[3]:
         print("Goodbye <3")
@@ -149,6 +153,8 @@ def create_card():
         # Save the list automatically
         with open('data.pkl', 'wb') as f:
             pickle.dump(loaded_list, f)
+
+        print("")
 
 def get_exit_code(i, breakword):
     if i.lower() == breakword:
