@@ -24,13 +24,7 @@ class Card:
         self.meaning = meaning
         self.example = example
 
-def main():
-    # Opens the file before running anything else
-    books = read_books("Books.txt")
-
-    # Define the deck of cards
-    cards = []
-
+def art():
     # Fun ascii art from https://patorjk.com/software/taag/
     print(r"""*---------------------------------------------------------------------------------------------------------*""")
     print(r""" /$$$$$$$           /$$ /$$           /$$       /$$$$$$$              /$$     /$$                          """)
@@ -47,11 +41,15 @@ def main():
     print(r"""*---------------------------------------------------------------------------------------------------------*""")
     print("")
 
+def main():
+    # Opens the file before running anything else
+    books = read_books("Books.txt")
+
     # Text for choice selection, easier and cleaner to predefine here
     choice_text = ["Show most common words", 
                    "Search for a word (shows word in sentences)",
                    "Flashcard mode",
-                   "Display cards"]
+                   "Exit"]
 
     # Uses questionary to add a multiple choice selection menu
     choice = questionary.select("What would you like to do?", choices = choice_text).ask()
@@ -74,25 +72,91 @@ def main():
         search = input()
         get_sentences(books, search)
 
+    # If the user selects the flashcard mode
     elif choice == choice_text[2]:
-        print("Word:")
-        word = input()
-        print("Meaning:")
-        meaning = input()
-        print ("Example:")
-        example = input()
-        cards.append(Card(word, meaning, example))
-        with open('data.pkl', 'wb') as f:
-            pickle.dump(cards, f)
+
+        # Choices for the sub menu for flashcard mode
+        flash_choice_text = ["Create new card",
+                        "Review cards (test)",
+                        "List all cards",
+                        "Remove a card",
+                        "Remove all cards"]
+        
+        flash_choice = questionary.select("What would you like do to?", choices = flash_choice_text).ask()
+
+        match flash_choice:
+            case "Create new card":
+                create_card()
+                main()
+
+            case "Review cards (test)":
+                print()
+
+            case "List all cards":
+                list_all_cards()
+                main()
+
+            case "Remove a card":
+                print()
+
+            case "Remove all cards":
+                print()
 
     elif choice == choice_text[3]:
+        print("Goodbye <3")
+
+# Shows all cards to the user
+def list_all_cards():
         with open('data.pkl', 'rb') as f:
             loaded_list = pickle.load(f)
+
         for obj in loaded_list:
             print(f"Word: {obj.word}")
             print(f"Meaning: {obj.meaning}")
             print(f"Example: {obj.example}")
+            print("")
 
+# Creates cards and auto saves to pkl
+def create_card():
+    print("**Type 'exit' into the word input to cancel**")
+
+    # Loops so you can input multiple cards at once
+    looping = True
+    while looping:
+        print("Word:")
+        word = input()
+        
+        # Hard-coded stopword, needs improved
+        if word.lower() == "exit":
+            looping = False
+            break
+
+        print("Meaning:")
+        meaning = input()
+        print ("Example:")
+        example = input()
+
+        # Load the pkl file to be read, creates a new list if the file doesnt exist
+        try:
+            with open('data.pkl', 'rb') as f:
+                loaded_list = pickle.load(f)
+        except (FileNotFoundError, EOFError):
+            loaded_list = []
+
+        new_card = Card(word, meaning, example)
+        loaded_list.append(new_card)
+
+        # Save the list automatically
+        with open('data.pkl', 'wb') as f:
+            pickle.dump(loaded_list, f)
+
+def get_exit_code(i, breakword):
+    if i.lower() == breakword:
+        return False
+    else:
+        return True
+
+# Splits the text into sentences and then searches for all sentences containting the search word
 def get_sentences(books, s):
     print("")
     sentences = tokenize.sent_tokenize(books)
@@ -107,6 +171,7 @@ def get_sentences(books, s):
         print("")
         counter += 1
 
+    main()
 
 # Removes names by checking each word againts a premade list of names
 def remove_person_names(books):
@@ -140,6 +205,7 @@ def count_words(books, n):
     for rank, (word, count) in enumerate(top_words, start=1):
         print(f"{rank:>4}. {word:<15} {count:>6}")
 
-    
+    main()
 
+art()
 main()

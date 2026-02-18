@@ -6,6 +6,7 @@ A simple Python command line tool for use in aiding Polish language learning. Th
 
 - Count words in the text to show the most common words, very helpful for language learning flashcards
 - Find sentences containing a selected word, good for finding out how words work in context of the language
+- Flashcards built in 
 
 ## The Process
 
@@ -51,6 +52,7 @@ This will run the program for you and you can navigate the menus using the arrow
 >> Show most common words
    Search for a word (shows word in sentences)
    Flashcard mode
+   Exit
 ```
 
 The workflow of the tool is as follows:
@@ -73,6 +75,6 @@ The workflow of the tool is as follows:
 │   │   └── Shows all cards you have created
 │   ├── Remove card (To-Do)
 │   │   └── Input card you want to remove
-│   └── Clear all cards (To-Do)
+│   └── Remove all cards (To-Do)
 └── Exit
 ```
