@@ -37,7 +37,7 @@ I then moved on to the flashcard implementation as this was the main part of the
 ## How can it be improved
 
 - The use of `spaCy` (a natural language processing package) to remove names from the text instead of having a list of names hard-coded
-- Improve the look with either a full GUI using a framework like `Tkinter` or `PyQt`
+- Improve the look with either a full GUI using a framework like `Tkinter` or `PyQt` or more advanced use of `rich`
 
 ## How to use
 
