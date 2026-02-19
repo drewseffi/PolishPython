@@ -20,9 +20,9 @@ I had to do some cleaning of the text which I did in the code instead of manuall
 
 ### GUI
 
-I moved on to implementing the ability to count occurances of the most common words and print them to the terminal which didn't look very nice. I then learned about the `:>` and `:<` function in Python and used it to format the output. However the interface didn't exist yet and after seeing a project use [BubbleTea](https://github.com/charmbracelet/bubbletea) (a terminal app framework for Go) I wanted to look for a Python library similar and [Questionary](https://github.com/tmbo/questionary/tree/master) was what I found. This is a really cool library for python terminal apps and was exactly what I was looking for, it's pretty and it's simple.
+I moved on to implementing the ability to count occurances of the most common words and print them to the terminal which didn't look very nice. I then learned about the `:>` and `:<` function in Python and used it to format the output. However the interface didn't exist yet and after seeing a project use [BubbleTea](https://github.com/charmbracelet/bubbletea) (a terminal app framework for Go) I wanted to look for a Python library similar and [Questionary](https://github.com/tmbo/questionary/tree/master) was what I found. This is a really cool library for python terminal apps and was exactly what I was looking for, it's pretty and it's simple. I also ended up finding out about `rich`, a library for using some more advanced formatting for command line text. I used it mainly for colouring of text but it's good to know that this tool exists and there is good documentation of it.
 
-### Saving Cards
+### Saving and Reading Cards
 
 I then moved on to the flashcard implementation as this was the main part of the project and the part I was looking forward to the least. I needed to be able to create, remove, edit, list and review the cards that were created. I started by making a very basic `Card` class that could store the word, meaning and an example. I then had to figure out how to store these cards for potential long-term use of the tool. I looked online and found `pickle`, a package for Python that could store Python objects neatly so I worked on getting the cards to store and read which was very easy with `pickle`.
 
@@ -37,6 +37,7 @@ I then moved on to the flashcard implementation as this was the main part of the
 ## How can it be improved
 
 - The use of `spaCy` (a natural language processing package) to remove names from the text instead of having a list of names hard-coded
+- Improve the look with either a full GUI using a framework like `Tkinter` or `PyQt`
 
 ## How to use
 

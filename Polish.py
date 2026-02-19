@@ -3,6 +3,7 @@ import questionary
 import nltk
 import re
 import pickle
+import random
 try:
     nltk.data.find('tokenizers/punkt')
     nltk.data.find('tokenizers/punkt_tab')
@@ -14,9 +15,12 @@ else:
     print("nltk datasets detected, running PolishPython...")
 from nltk import tokenize
 from collections import Counter
+from rich.console import Console
 
 # Premade list of names that occur in the texts
 names = {"scrooge", "scroogea", "krystian", "krystiana", "piotr"}
+
+console = Console(highlight=False)
 
 class Card:
     def __init__(self, word, meaning, example):
@@ -26,19 +30,19 @@ class Card:
 
 def art():
     # Fun ascii art from https://patorjk.com/software/taag/
-    print(r"""*---------------------------------------------------------------------------------------------------------*""")
-    print(r""" /$$$$$$$           /$$ /$$           /$$       /$$$$$$$              /$$     /$$                          """)
-    print(r"""| $$__  $$         | $$|__/          | $$      | $$__  $$            | $$    | $$                          """)
-    print(r"""| $$  \ $$ /$$$$$$ | $$ /$$  /$$$$$$$| $$$$$$$ | $$  \ $$ /$$   /$$ /$$$$$$  | $$$$$$$   /$$$$$$  /$$$$$$$ """)
-    print(r"""| $$$$$$$//$$__  $$| $$| $$ /$$_____/| $$__  $$| $$$$$$$/| $$  | $$|_  $$_/  | $$__  $$ /$$__  $$| $$__  $$""")
-    print(r"""| $$____/| $$  \ $$| $$| $$|  $$$$$$ | $$  \ $$| $$____/ | $$  | $$  | $$    | $$  \ $$| $$  \ $$| $$  \ $$""")
-    print(r"""| $$     | $$  | $$| $$| $$ \____  $$| $$  | $$| $$      | $$  | $$  | $$ /$$| $$  | $$| $$  | $$| $$  | $$""")
-    print(r"""| $$     |  $$$$$$/| $$| $$ /$$$$$$$/| $$  | $$| $$      |  $$$$$$$  |  $$$$/| $$  | $$|  $$$$$$/| $$  | $$""")
-    print(r"""|__/      \______/ |__/|__/|_______/ |__/  |__/|__/       \____  $$   \___/  |__/  |__/ \______/ |__/  |__/""")
-    print(r"""                                                          /$$  | $$                                        """)
-    print(r"""                                                         |  $$$$$$/                                        """)
-    print(r"""                                                          \______/                                         """)
-    print(r"""*---------------------------------------------------------------------------------------------------------*""")
+    console.print(r"""[gold1]*---------------------------------------------------------------------------------------------------------*[/]""")
+    console.print(r"""[white] /$$$$$$$           /$$ /$$           /$$       /$$$$$$$              /$$     /$$                          [/]""")
+    console.print(r"""[white]| $$__  $$         | $$|__/          | $$      | $$__  $$            | $$    | $$                          [/]""")
+    console.print(r"""[white]| $$  \ $$ /$$$$$$ | $$ /$$  /$$$$$$$| $$$$$$$ | $$  \ $$ /$$   /$$ /$$$$$$  | $$$$$$$   /$$$$$$  /$$$$$$$ [/]""")
+    console.print(r"""[white]| $$$$$$$//$$__  $$| $$| $$ /$$_____/| $$__  $$| $$$$$$$/| $$  | $$|_  $$_/  | $$__  $$ /$$__  $$| $$__  $$[/]""")
+    console.print(r"""[white]| $$____/| $$  \ $$| $$| $$|  $$$$$$ | $$  \ $$| $$____/ | $$  | $$  | $$    | $$  \ $$| $$  \ $$| $$  \ $$[/]""")
+    console.print(r"""[red]| $$     | $$  | $$| $$| $$ \____  $$| $$  | $$| $$      | $$  | $$  | $$ /$$| $$  | $$| $$  | $$| $$  | $$[/]""")
+    console.print(r"""[red]| $$     |  $$$$$$/| $$| $$ /$$$$$$$/| $$  | $$| $$      |  $$$$$$$  |  $$$$/| $$  | $$|  $$$$$$/| $$  | $$[/]""")
+    console.print(r"""[red]|__/      \______/ |__/|__/|_______/ |__/  |__/|__/       \____  $$   \___/  |__/  |__/ \______/ |__/  |__/[/]""")
+    console.print(r"""[red]                                                          /$$  | $$                                        [/]""")
+    console.print(r"""[red]                                                         |  $$$$$$/                                        [/]""")
+    console.print(r"""[red]                                                          \______/                                         [/]""")
+    console.print(r"""[gold1]*---------------------------------------------------------------------------------------------------------*[/]""")
     print("")
 
 def main():
@@ -93,7 +97,8 @@ def main():
                 main()
 
             case "Review cards (test)":
-                print()
+                review_cards()
+                main()
 
             case "List all cards":
                 list_all_cards()
@@ -118,6 +123,29 @@ def main():
     elif choice == choice_text[3]:
         print("Goodbye <3")
 
+# Gives you a shuffled deck of cards you have created to review
+def review_cards():
+    with open('data.pkl', 'rb') as f:
+        loaded_list = pickle.load(f)
+
+    shuffled_list = loaded_list
+    random.shuffle(shuffled_list)
+
+    console.print("[bold red]**Type 'e' into the input to cancel**[/]")
+
+    for card in shuffled_list:
+        console.print(f"[bold red]Word:[/] {card.word}")
+        if input("Press enter to reveal the meaning and example...") == "e":
+            main()
+            break
+        console.print(f"[bold red]Meaning:[/] {card.meaning}")
+        console.print(f"[bold red]Example:[/] {card.example}")
+        if input("Press enter to go to next card...") == "e":
+            main()
+            break
+
+    print("You have completed every card, well done!")
+
 # Function for removing cards, easy to reuse for removing all cards
 def remove_card(word):
         with open('data.pkl', 'rb') as f:
@@ -138,14 +166,14 @@ def list_all_cards():
             loaded_list = pickle.load(f)
 
         for obj in loaded_list:
-            print(f"Word: {obj.word}")
-            print(f"Meaning: {obj.meaning}")
-            print(f"Example: {obj.example}")
-            print("")
+            console.print(f"[bold red]Word:[/] {obj.word}")
+            console.print(f"[bold red]Meaning:[/] {obj.meaning}")
+            console.print(f"[bold red]Example:[/] {obj.example}")
+            console.print("")
 
 # Creates cards and auto saves to pkl
 def create_card():
-    print("**Type 'exit' into the word input to cancel**")
+    console.print("[bold red]**Type 'e' into the word input to cancel**[/]")
 
     # Loops so you can input multiple cards at once
     looping = True
@@ -154,7 +182,7 @@ def create_card():
         word = input()
         
         # Hard-coded stopword, needs improved
-        if word.lower() == "exit":
+        if word.lower() == "e":
             looping = False
             break
 
@@ -232,7 +260,7 @@ def count_words(books, n):
 
     # Loops through the dict and formats them nicely with :> 
     for rank, (word, count) in enumerate(top_words, start=1):
-        print(f"{rank:>4}. {word:<15} {count:>6}")
+        console.print(f"[bold red]{rank:>4}.[/] {word:<15} {count:>6}")
 
     main()
 
