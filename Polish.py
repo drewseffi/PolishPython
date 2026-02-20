@@ -28,6 +28,14 @@ class Card:
         self.meaning = meaning
         self.example = example
 
+    def edit_card(self):
+        print("Word:")
+        self.word = input()
+        print("Meaning")
+        self.meaning = input()
+        print("Example:")
+        self.example = input()
+
 def art():
     # Fun ascii art from https://patorjk.com/software/taag/
     console.print(r"""[gold1]*---------------------------------------------------------------------------------------------------------*[/]""")
@@ -105,7 +113,24 @@ def main():
                 main()
 
             case "Edit card":
-                print()
+                found = False
+                print("Please enter word you would like to edit (include accents)")
+                word_to_edit = input()
+                with open('data.pkl', 'rb') as f:
+                    loaded_list = pickle.load(f)
+                for card in loaded_list:
+                    if card.word.lower() == word_to_edit.lower():
+                        card.edit_card()
+                        found = True
+                        break
+
+                if not found:
+                    print("No card with that word found...")
+
+                with open('data.pkl', 'wb') as f:
+                    pickle.dump(loaded_list, f)
+
+                main()
 
             case "Remove a card":
                 print("Please enter word you would like to remove (include accents)")

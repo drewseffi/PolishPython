@@ -1,12 +1,12 @@
 # PolishPython
 
-A simple Python command line tool for use in aiding Polish language learning. This tool uses public domain books taken from https://wolnelektury.pl/ as source material. This project is just a pet project and is not meant to be made for mass-use however I want to be able to track my progress and share it on GitHub.
+A simple Python command line tool for use in aiding Polish language learning. This tool uses public domain books taken from [Wolne Lektury](https://wolnelektury.pl/) as source material. This project is just a pet project and is not meant to be made for mass-use however I want to be able to track my progress and share it on GitHub.
 
 ## Features
 
 - Count words in the text to show the most common words, very helpful for language learning flashcards
 - Find sentences containing a selected word, good for finding out how words work in context of the language
-- Flashcards built in 
+- Flashcards built in
 
 ## The Process
 
@@ -85,7 +85,7 @@ The workflow of the tool is as follows:
 │   │   └── Runs a quiz of your cards
 │   ├── List all cards
 │   │   └── Shows all cards you have created
-│   ├── Edit cards (To-Do)
+│   ├── Edit cards
 │   │   └── Input card you want to edit
 │   │       ├── Input word
 │   │       ├── Input meaning
