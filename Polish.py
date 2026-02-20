@@ -82,7 +82,9 @@ def main():
     elif choice == choice_text[1]:
         print("Please enter a word you would like to see in a sentence (include accents)")
         search = input()
-        get_sentences(books, search)
+        print("How many sentences would you like to see?")
+        num = input()
+        get_sentences(books, search, num)
 
     # If the user selects the flashcard mode
     elif choice == choice_text[2]:
@@ -239,19 +241,27 @@ def get_exit_code(i, breakword):
         return True
 
 # Splits the text into sentences and then searches for all sentences containting the search word
-def get_sentences(books, s):
+def get_sentences(books, s, n):
+    n = int(n)
     print("")
+
     sentences = tokenize.sent_tokenize(books)
     pattern = re.compile(rf'\b{re.escape(s)}\b', re.IGNORECASE)
 
     matches = [sentence for sentence in sentences if pattern.search(sentence)]
+    random.shuffle(matches)
 
-    counter = 1
+    if not matches:
+        print("No matches found.")
+        return
 
-    for sentence in matches:
+    if n > len(matches):
+        console.print(f"[bold red]Only {len(matches)} matches, displaying all...[/]")
+        n = len(matches)
+
+    for counter, sentence in enumerate(matches[:n], start=1):
         print(f"{counter}) {sentence}")
         print("")
-        counter += 1
 
     main()
 
