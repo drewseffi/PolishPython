@@ -159,9 +159,6 @@ def main():
         # List all cards
         list_all_cards()
 
-        # Show number of learned words
-
-
     elif choice == choice_text[4]:
         print("Goodbye <3")
 
