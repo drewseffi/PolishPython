@@ -61,6 +61,7 @@ def main():
     choice_text = ["Show most common words", 
                    "Search for a word (shows word in sentences)",
                    "Flashcard mode",
+                   "Full report",
                    "Exit"]
 
     # Uses questionary to add a multiple choice selection menu
@@ -148,6 +149,20 @@ def main():
                 main()
 
     elif choice == choice_text[3]:
+        # Print 10 most common words
+        books = decapitalize(books)
+        books = remove_person_names(books)
+        books = remove_grammar(books)
+
+        count_words(books, int(10))
+
+        # List all cards
+        list_all_cards()
+
+        # Show number of learned words
+
+
+    elif choice == choice_text[4]:
         print("Goodbye <3")
 
 # Gives you a shuffled deck of cards you have created to review
