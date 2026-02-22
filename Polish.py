@@ -4,6 +4,7 @@ import nltk
 import re
 import pickle
 import random
+import csv
 try:
     nltk.data.find('tokenizers/punkt')
     nltk.data.find('tokenizers/punkt_tab')
@@ -97,6 +98,7 @@ def main():
                         "Edit card",
                         "Remove a card",
                         "Remove all cards",
+                        "Export cards to CSV",
                         "Main menu"]
         
         flash_choice = questionary.select("What would you like do to?", choices = flash_choice_text).ask()
@@ -144,6 +146,20 @@ def main():
             case "Remove all cards":
                 remove_card(None)
                 main()
+
+            case "Export cards to CSV":
+                with open('data.pkl', 'rb') as f:
+                    loaded_list = pickle.load(f)
+
+                with open('cards.csv', 'w', newline='') as csvfile:
+                    for card in loaded_list:
+                        row = card.word, card.meaning, card.example
+                        writer = csv.writer(csvfile)
+                        writer.writerow(row)
+
+                with open('cards.txt', 'w') as t:
+                    for card in loaded_list:
+                        t.write(f"{card.word},{card.meaning},{card.example}\n")
 
             case "Main menu":
                 main()

@@ -26,6 +26,10 @@ I moved on to implementing the ability to count occurances of the most common wo
 
 I then moved on to the flashcard implementation as this was the main part of the project and the part I was looking forward to the least. I needed to be able to create, remove, edit, list and review the cards that were created. I started by making a very basic `Card` class that could store the word, meaning and an example. I then had to figure out how to store these cards for potential long-term use of the tool. I looked online and found `pickle`, a package for Python that could store Python objects neatly so I worked on getting the cards to store and read which was very easy with `pickle`.
 
+### Saving and Loading From CSV/JSON
+
+I decided that being able to have your cards in other formats than `.pkl` (as this is only useful for Python) would be a good idea as this would allow for users to use their cards in other software (such as [Anki](https://apps.ankiweb.net/)). For this reason I will export data as a `.csv`, `.txt` (just the CSV but as a text file for additional compatability) and a `.json`.
+
 ## What I learned
 
 - How to clean text better with the use of `.lower()`, `.translate()`, `.split()` and `.join()`
@@ -81,7 +85,7 @@ The workflow of the tool is as follows:
 │   │   ├── Input word
 │   │   ├── Input meaning
 │   │   └── Input example
-│   ├── Review cards (To-Do)
+│   ├── Review cards (WIP)
 │   │   └── Runs a quiz of your cards
 │   ├── List all cards
 │   │   └── Shows all cards you have created
@@ -93,6 +97,10 @@ The workflow of the tool is as follows:
 │   ├── Remove card
 │   │   └── Input card you want to remove
 │   ├── Remove all cards
-│   └── Main menu
+│   ├── Main menu
+│   ├── Export to CSV
+│   ├── Load from CSV (To-Do)
+│   ├── Export to JSON (To-Do)
+│   └── Load from JSON (To-Do)
 └── Exit
 ```
